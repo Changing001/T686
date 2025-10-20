@@ -176,7 +176,7 @@ class RealTStart {
             context, arrayListOf(
                 "bug",
                 """{
-    "bta":"w_bob_dud_kuk",
+    "bta":"wow_bob_dud_kuk",
     "cvv":"id_token",
     "nak":"981772962_981772963",
     "akm":"5_10",
