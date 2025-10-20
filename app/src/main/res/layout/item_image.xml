@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    tools:layout_width="match_parent"
+    android:layout_columnWeight="1"
+    android:layout_width="0dp"
+    android:layout_height="168dp"
+
+    tools:context=".nav.nav0.PlaceholderFragment">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:id="@+id/image"
+        android:layout_marginHorizontal="8dp"
+        android:layout_gravity="center"
+        app:strokeWidth="0dp"
+        android:src="@mipmap/set_logo_10"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        android:layout_height="152dp"/>
+
+</FrameLayout>

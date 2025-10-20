@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="56dp"
+    tools:background="#ff00ff"
+    android:layout_height="match_parent">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="40dp"
+        app:strokeColor="#fff"
+        tools:src="#0000ff"
+        android:id="@+id/image"
+        android:padding="1dp"
+        android:layout_gravity="center"
+        app:strokeWidth="2dp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        android:layout_height="40dp"/>
+
+
+    <TextView
+        tools:text="1"
+        android:id="@+id/tv"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

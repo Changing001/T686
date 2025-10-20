@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    tools:background="#000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:background="@drawable/shp_tr20"
+        android:orientation="horizontal"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <TextView
+            android:drawableTop="@mipmap/home_nav_t0_select"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:id="@+id/nav0"
+            android:paddingBottom="16dp"
+            android:drawableBottom="@mipmap/home_nav_ind"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:drawableTop="@mipmap/home_nav_t1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:id="@+id/nav1"
+            android:paddingBottom="16dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:drawableTop="@mipmap/home_nav_t2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/nav2"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</FrameLayout>

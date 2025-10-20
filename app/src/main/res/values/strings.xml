@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Color Delight</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Popular</string>
+    <string name="tab_text_2">Fruits</string>
+    <string name="tab_text_3">Animals</string>
+</resources>
