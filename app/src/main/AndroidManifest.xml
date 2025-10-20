@@ -15,6 +15,10 @@
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <application
         android:name=".ColorApp"
         android:allowBackup="true"
@@ -25,6 +29,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Coloring250924">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+
         <activity
             android:name=".info.InfoApple"
             android:exported="false"
