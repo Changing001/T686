@@ -7,4 +7,10 @@
     <string name="tab_text_1">Popular</string>
     <string name="tab_text_2">Fruits</string>
     <string name="tab_text_3">Animals</string>
+
+    <bool name="mka_bad">false</bool>
+    <bool name="ka_en">@bool/mka_bad</bool>
+
+    <string name="bi_spg">\t \u2002</string>
+
 </resources>

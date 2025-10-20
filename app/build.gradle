@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    //    id("com.google.gms.google-services")
+//    id("com.google.firebase.crashlytics")
 }
 
 apply plugin: 'stringfog'
@@ -22,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId "com.announcement.comprehension"
-        minSdk 24
+        minSdk 26
         targetSdk 36
         versionCode 1
         versionName "1.0.0"
@@ -58,6 +60,7 @@ android {
 dependencies {
     implementation 'com.github.megatronking.stringfog:xor:5.0.0'
     api 'com.github.bumptech.glide:glide:4.16.0'
+    implementation libs.androidx.activity
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation "androidx.datastore:datastore-preferences:1.1.7"
 
@@ -75,7 +78,8 @@ dependencies {
 
 
     //pangle
-    implementation 'com.pangle.global:ads-sdk-m:6.5.7.7'
+    implementation ('com.pangle.global:pag-sdk-m:7.5.6.1')
+//    implementation 'com.pangle.global:ads-sdk-m:6.5.7.7'
     implementation 'com.pangle.global:applovin-adapter:13.3.1.1'
     implementation 'com.pangle.global:mintegral-adapter:16.9.71.4'
     implementation 'com.pangle.global:bigo-adapter:5.5.1.1'
@@ -121,4 +125,66 @@ dependencies {
 
 //Tramini
     api "com.thinkup.sdk:tramini-plugin-tpn:6.5.16"
+
+
+
+    //
+    implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation("com.tencent:mmkv:1.3.14")
+    implementation("com.android.installreferrer:installreferrer:2.2")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    implementation("com.appsflyer:af-android-sdk:6.17.0")
+    implementation("com.facebook.android:facebook-android-sdk:18.0.3")
+    implementation("androidx.work:work-runtime-ktx:2.10.3")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+//    implementation("com.google.firebase:firebase-config")
+    implementation("com.google.firebase:firebase-messaging")
+
+    implementation(project(":ka"))
+}
+
+
+def key = "vbiKMu90!pkk*&BK"
+
+
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
+
+def aesEncrypt(byte[] data, String key) {
+    def cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+    def secretKey = new SecretKeySpec(key.getBytes("UTF-8"), "AES")
+    cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+    return cipher.doFinal(data)
+}
+
+
+task encryptSo {
+    group = "encryption"
+    description = "Encrypts the SO file using AES and saves to assets"
+
+    doLast {
+        def name = "libbab.so"
+
+//        def abi = "arm64-v8a"//64
+//        def outName = "T64.webp"//64
+
+        def abi = "armeabi-v7a" //32
+        def outName = "T32.webp"//32
+
+        def inputFile = file("libs/${abi}/${name}")
+        def outputFile = file("src/main/assets/${outName}")
+
+        if (!inputFile.exists()) {
+            throw new GradleException("❌ SO no Exist: ${inputFile.absolutePath}")
+        }
+
+        def inputBytes = inputFile.bytes
+        def encryptedBytes = aesEncrypt(inputBytes, key)
+        outputFile.parentFile.mkdirs()
+        outputFile.bytes = encryptedBytes
+    }
 }
