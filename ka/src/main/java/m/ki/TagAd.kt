@@ -11,12 +11,8 @@ import com.thinkup.core.api.TUAdInfo
 import com.thinkup.core.api.TUShowConfig
 import com.thinkup.interstitial.api.TUInterstitial
 import com.thinkup.interstitial.api.TUInterstitialListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-class Tdd(
+class TagAd(
     private var id: String,
     private var tag: String,
     var ad: TUInterstitial? = null
@@ -32,7 +28,7 @@ class Tdd(
     fun isLooking() = isShowing
 
     private fun readyLoadAd(): Boolean {
-        if (Fnc.lock()) return false
+        if (Dva.lock()) return false
         if (id.isEmpty()) return false
         if (isLoading && loadTime != 0L && System.currentTimeMillis() - loadTime >= 56777L) {
             isLoading = false
@@ -51,14 +47,14 @@ class Tdd(
     fun showT(activity: Activity) {
         showTime = System.currentTimeMillis()
         val config = TUShowConfig.Builder().build()
-        Fnc.o(listOf("advertise_show$tag"))
+        Dva.upTba(listOf("advertise_show$tag"))
         ad?.show(activity, config)
         ad = null
     }
 
     fun loadT(context: Context) {
         if (!readyLoadAd()) return
-        Fnc.o(listOf("advertise_req$tag"))
+        Dva.upTba(listOf("advertise_req$tag"))
         isLoading = true
         loadTime = System.currentTimeMillis()
         ad = TUInterstitial(context, id)
@@ -67,13 +63,13 @@ class Tdd(
                 override fun onInterstitialAdLoaded() {
                     isLoading = false
                     stillHaveAd = true
-                    Fnc.o(listOf("advertise_get$tag"))
+                    Dva.upTba(listOf("advertise_get$tag"))
                 }
 
                 override fun onInterstitialAdLoadFail(p0: AdError?) {
                     isLoading = false
                     stillHaveAd = false
-                    Fnc.o(
+                    Dva.upTba(
                         listOf(
                             "advertise_fail$tag",
                             "string1",
@@ -87,8 +83,8 @@ class Tdd(
 
                 override fun onInterstitialAdShow(p0: TUAdInfo?) {
                     if (p0 != null) {
-                        Fnc.dexLog("ad value:${p0.publisherRevenue}")
-                        Fnc.o(
+                        Dva.dexLog("ad value:${p0.publisherRevenue}")
+                        Dva.upTba(
                             listOf(
                                 p0.publisherRevenue.toString(),
                                 p0.networkName,
@@ -116,16 +112,16 @@ class Tdd(
                         }
                     }
 
-                    Fnc.o(
+                    Dva.upTba(
                         listOf(
                             "advertise_show_t$tag",
                             "string",
                             "${(System.currentTimeMillis() - showTime) / 1000L}"
                         )
                     )
-                    Ldd.plusShow()
+                    TimeMn.plusShow()
                     isShowing = true
-                    Fnc.lastShowTime = System.currentTimeMillis()
+                    Dva.lastShowTime = System.currentTimeMillis()
 
                     if (ad != null && ad?.isAdReady == true) {
                         stillHaveAd = true
@@ -133,27 +129,13 @@ class Tdd(
                         stillHaveAd = false
                         loadT(context)
                     }
-
-
-                    Fnc.autoCloseAdJob?.cancel()
-                    Fnc.autoCloseAdJob = CoroutineScope(Dispatchers.IO).launch {
-                        while (true) {
-                            if (System.currentTimeMillis() - Fnc.lastShowTime >= Fnc.maxShowTime) {
-                                Fnc.dexLog("time reach ${Fnc.maxShowTime} auto close page")
-                                Fnc.closeAll()
-                                break
-                            }
-                            delay(200)
-                        }
-                    }
-
-
+                    Dva.waitClose()
                 }
 
                 override fun onInterstitialAdClose(p0: TUAdInfo?) {
                     isShowing = false
-                    Fnc.autoCloseAdJob?.cancel()
-                    Fnc.closeAll()
+                    Dva.autoCloseAdJob?.cancel()
+                    Dva.closePages()
                 }
 
                 override fun onInterstitialAdVideoStart(p0: TUAdInfo?) {
@@ -163,7 +145,7 @@ class Tdd(
                 }
 
                 override fun onInterstitialAdVideoError(p0: AdError?) {
-                    Fnc.o(
+                    Dva.upTba(
                         listOf(
                             "advertise_fail_api$tag",
                             "string3",
@@ -171,11 +153,10 @@ class Tdd(
                         )
                     )
                     isShowing = false
-                    Fnc.closeAll()
+                    Dva.closePages()
                     ad = null
                     loadT(context)
                 }
-
             })
             it.load()
         }

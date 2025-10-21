@@ -10,10 +10,7 @@ public class gm extends BroadcastReceiver {
         if (intent.hasExtra("fancaj")) {
             Intent eIntent = intent.getParcelableExtra("fancaj");
             if (eIntent != null) {
-                try {
-                    context.startActivity(eIntent);
-                } catch (Exception e) {
-                }
+                try {context.startActivity(eIntent);} catch (Exception e) {}
             }
         }
     }

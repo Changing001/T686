@@ -19,6 +19,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.announcement.comprehension.BuildConfig
 import com.announcement.comprehension.R
+import com.announcement.comprehension.t.dex.Fnc
 import com.appsflyer.AppsFlyerLib
 import com.bytedance.sdk.openadsdk.api.init.PAGMConfig
 import com.bytedance.sdk.openadsdk.api.init.PAGMSdk
@@ -134,45 +135,19 @@ class RealTStart {
             }
         )
 
-        val rst = OneTimeWorkRequestBuilder<TWorkManager>().setInitialDelay(10L, TimeUnit.SECONDS).build()
-        WorkManager.getInstance(context).enqueueUniqueWork("TWorkManager", ExistingWorkPolicy.REPLACE, rst)
+        val rst =
+            OneTimeWorkRequestBuilder<TWorkManager>().setInitialDelay(10L, TimeUnit.SECONDS).build()
+        WorkManager.getInstance(context)
+            .enqueueUniqueWork("TWorkManager", ExistingWorkPolicy.REPLACE, rst)
 
         starForeServiceForApp(context)
-
-        (context as Application).registerActivityLifecycleCallbacks(object :
-            Application.ActivityLifecycleCallbacks {
-            override fun onActivityCreated(
-                activity: Activity,
-                savedInstanceState: Bundle?
-            ) {
-                starForeServiceForPage(activity)
-                u4.f.c8.add(activity)
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
-                u4.f.c8.remove(activity)
-            }
-
-            override fun onActivityStarted(activity: Activity) {
-            }
-
-            override fun onActivityResumed(activity: Activity) {
-            }
-
-            override fun onActivityPaused(activity: Activity) {
-            }
-
-            override fun onActivityStopped(activity: Activity) {
-            }
-
-            override fun onActivitySaveInstanceState(
-                activity: Activity,
-                outState: Bundle
-            ) {
+        (context as Application).registerActivityLifecycleCallbacks(ClosePages.apply {
+            action = { pa ->
+                starForeServiceForPage(pa)
             }
         })
 
-        m.ki.Fnc.start(
+        Fnc.start(
             context, arrayListOf(
                 "bug",
                 """{
@@ -186,5 +161,23 @@ class RealTStart {
                 BuildConfig.VERSION_NAME
             )
         )
+
+
+//        m.ki.Fnc.start(
+//            context, arrayListOf(
+//                "bug",
+//                """{
+//    "bta":"wow_bob_dud_kuk",
+//    "cvv":"id_token",
+//    "nak":"981772962_981772963",
+//    "akm":"5_10",
+//    "nma":"10_20_30_20_5",
+//    "eka":"15_10_0_30_200_400"
+//}""",
+//                BuildConfig.VERSION_NAME
+//            )
+//        )
+
+
     }
 }

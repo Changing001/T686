@@ -1,9 +1,11 @@
-package m.ki;
+package com.announcement.comprehension.t.dex;
 
 import com.tencent.mmkv.MMKV;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import m.ki.Dva;
 
 public final class Ldd {
 
@@ -46,8 +48,8 @@ public final class Ldd {
 
     public static int adminLimit() {
         refreshTag();
-        if (readLong("adminTime") >= Fnc.INSTANCE.getAdminMaxTime()) {
-            Fnc.INSTANCE.dexLog("adminLimited");
+        if (readLong("adminTime") >= Dva.INSTANCE.getAdminMaxTime()) {
+            Dva.INSTANCE.dexLog("adminLimited");
             return 1;
         }
         return 0;
@@ -55,9 +57,9 @@ public final class Ldd {
 
     public static int limit() {
         refreshTag();
-        if (readLong("hourShow") >= Fnc.INSTANCE.getHourMaxShow()) {
+        if (readLong("hourShow") >= Dva.INSTANCE.getHourMaxShow()) {
             return 1;
-        } else if (readLong("dayShow") >= Fnc.INSTANCE.getDayMaxShow()) {
+        } else if (readLong("dayShow") >= Dva.INSTANCE.getDayMaxShow()) {
             saveStr("dayShowLimitTag", getTag(1));
             return 2;
         }
@@ -72,7 +74,7 @@ public final class Ldd {
         }
         String dayTag = getTag(1);
         if (!readStr("dayTag").equals(dayTag)) {
-            Fnc.INSTANCE.setNowPopFail(0); // Kotlin 属性需通过 getter/setter 调用
+            Dva.INSTANCE.setNowPopFail(0); // Kotlin 属性需通过 getter/setter 调用
             saveStr("dayTag", dayTag);
             saveLong("adminTime", 0);
             saveLong("dayShow", 0);
