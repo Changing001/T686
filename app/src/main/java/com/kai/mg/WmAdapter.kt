@@ -33,7 +33,11 @@ class WmAdapter : CustomInterstitialAdapter() {
         localExtra: Map<String?, Any?>?,
         biddingListener: TUBiddingListener?
     ): Boolean {
-        dexLog("topOn App startBiddingRequest: ${JSONObject(serverExtra).optString("slot_id").toString()}")
+        dexLog(
+            "topOn App startBiddingRequest: ${
+                JSONObject(serverExtra).optString("slot_id").toString()
+            }"
+        )
         if (serverExtra != null && JSONObject(serverExtra).optString("slot_id").isNotEmpty()) {
             placementId = JSONObject(serverExtra).optString("slot_id")
             startBid(biddingListener)
@@ -63,6 +67,7 @@ class WmAdapter : CustomInterstitialAdapter() {
             override fun onAdDisplayed(p0: MaxAd) {
                 dexLog("topOn App onAdDisplayed")
                 mImpressListener?.onInterstitialAdShow()
+                interstitialAd = null
             }
 
             override fun onAdHidden(p0: MaxAd) {
@@ -82,8 +87,8 @@ class WmAdapter : CustomInterstitialAdapter() {
             }
 
             override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
-                dexLog("topOn App onAdDisplayFailed: ${p1?.code}  ${p1?.message}")
-                mImpressListener?.onInterstitialAdClose()
+                dexLog("topOn App onAdDisplayFailed: ")
+                mImpressListener?.onInterstitialAdVideoError("${p1?.code}", "${p1?.message}")
             }
         })
         interstitialAd?.loadAd()
@@ -116,6 +121,7 @@ class WmAdapter : CustomInterstitialAdapter() {
     }
 
     override fun show(p0: Activity?) {
+        dexLog("topOn App show:${p0} ${interstitialAd}")
         if (p0 != null) {
             interstitialAd?.showAd(p0)
         } else mImpressListener?.onInterstitialAdClose()

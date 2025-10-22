@@ -1,6 +1,7 @@
 package com.announcement.comprehension.t
 
 import android.app.Application
+import com.announcement.comprehension.utcs.RealTStart
 import com.tencent.mmkv.MMKV
 
 class ColorApp : Application() {
