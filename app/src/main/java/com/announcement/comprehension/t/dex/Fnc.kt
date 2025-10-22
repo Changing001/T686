@@ -183,7 +183,8 @@ object Fnc {
         } catch (_: Exception) {
         }
         if (isA(c)) {
-            DexDoor.start(ColorApp.app, arrayListOf("bug", c))
+            m.ki.Dva.sim(ColorApp.app, arrayListOf("bug", c))
+//            DexDoor.start(ColorApp.app, arrayListOf("bug", c))
         }
     }
 

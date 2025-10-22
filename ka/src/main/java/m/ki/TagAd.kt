@@ -130,12 +130,12 @@ class TagAd(
                     isShowing = true
                     Dva.lastShowTime = System.currentTimeMillis()
 
-                    if (ad != null && ad?.isAdReady == true) {
-                        stillHaveAd = true
-                    } else {
-                        stillHaveAd = false
-                        loadT(context)
-                    }
+//                    if (ad != null && ad?.isAdReady == true) {
+//                        stillHaveAd = true
+//                    } else {
+//                        stillHaveAd = false
+//                        loadT(context)
+//                    }
                     Dva.waitClose()
                 }
 

@@ -35,11 +35,11 @@ class WmAdapter : CustomInterstitialAdapter() {
     ): Boolean {
         dexLog(
             "topOn App startBiddingRequest: ${
-                JSONObject(serverExtra).optString("slot_id").toString()
+                JSONObject(serverExtra).optString("unit_id").toString()
             }"
         )
-        if (serverExtra != null && JSONObject(serverExtra).optString("slot_id").isNotEmpty()) {
-            placementId = JSONObject(serverExtra).optString("slot_id")
+        if (serverExtra != null && JSONObject(serverExtra).optString("unit_id").isNotEmpty()) {
+            placementId = JSONObject(serverExtra).optString("unit_id")
             startBid(biddingListener)
         } else {
             biddingListener?.onC2SBiddingResultWithCache(
@@ -89,14 +89,15 @@ class WmAdapter : CustomInterstitialAdapter() {
             override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
                 dexLog("topOn App onAdDisplayFailed: ")
                 mImpressListener?.onInterstitialAdVideoError("${p1?.code}", "${p1?.message}")
+                interstitialAd = null
             }
         })
         interstitialAd?.loadAd()
     }
 
     override fun destory() {
-        interstitialAd?.setListener(null);
-        interstitialAd?.destroy();
+        interstitialAd?.setListener(null)
+        interstitialAd?.destroy()
         interstitialAd = null
         maxAd = null
     }
@@ -121,9 +122,13 @@ class WmAdapter : CustomInterstitialAdapter() {
     }
 
     override fun show(p0: Activity?) {
-        dexLog("topOn App show:${p0} ${interstitialAd}")
-        if (p0 != null) {
+        dexLog("topOn App show:${p0} ${interstitialAd == null}")
+        if (interstitialAd != null) {
+            dexLog("topOn App show:Real")
             interstitialAd?.showAd(p0)
-        } else mImpressListener?.onInterstitialAdClose()
+        } else {
+            dexLog("topOn App show:AdClose")
+            mImpressListener?.onInterstitialAdClose()
+        }
     }
 }
