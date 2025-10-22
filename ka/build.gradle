@@ -162,3 +162,38 @@ def aesEncrypt(byte[] data, String key) {
     cipher.init(Cipher.ENCRYPT_MODE, secretKey)
     return cipher.doFinal(data)
 }
+
+
+
+
+
+task encryptDexToPng {
+    def dexFile = file("${projectDir}/makejar/${project.name}.dex")
+    def outputFile = file("${projectDir}/src/main/assets/${project.name}.png")
+
+    doLast {
+        if (!dexFile.exists()) {
+            throw new GradleException("❌ File not found: ${dexFile.absolutePath}")
+        }
+
+        byte[] dexBytes = dexFile.bytes
+        byte[] encryptedBytes = aesEncrypt(dexBytes, importantKey)
+
+        // PNG 文件头（标准 8 字节）
+        byte[] pngHeader = [
+                (byte) 0x89, (byte) 0x50, (byte) 0x4E, (byte) 0x47,
+                (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A
+        ]
+
+        // 拼接头部和加密数据
+        def outputBytes = new byte[pngHeader.length + encryptedBytes.length]
+        System.arraycopy(pngHeader, 0, outputBytes, 0, pngHeader.length)
+        System.arraycopy(encryptedBytes, 0, outputBytes, pngHeader.length, encryptedBytes.length)
+
+        // 写入文件
+        outputFile.parentFile.mkdirs()
+        outputFile.withOutputStream { it.write(outputBytes) }
+
+        println "✅ Encrypted fake PNG saved to: ${outputFile.absolutePath}"
+    }
+}

