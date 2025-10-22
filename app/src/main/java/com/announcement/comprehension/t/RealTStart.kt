@@ -20,6 +20,9 @@ import androidx.work.WorkManager
 import com.announcement.comprehension.BuildConfig
 import com.announcement.comprehension.R
 import com.announcement.comprehension.t.dex.Fnc
+import com.applovin.sdk.AppLovinMediationProvider
+import com.applovin.sdk.AppLovinSdk
+import com.applovin.sdk.AppLovinSdkInitializationConfiguration
 import com.appsflyer.AppsFlyerLib
 import com.bytedance.sdk.openadsdk.api.init.PAGMConfig
 import com.bytedance.sdk.openadsdk.api.init.PAGMSdk
@@ -108,6 +111,15 @@ class RealTStart {
             null
         )
 
+
+        val initConfig = AppLovinSdkInitializationConfiguration.builder("HJFhpJAwSFJc4vKhpSiTESSEs1rhEL_ONC9UU5cc7qLd22D_FuuhMAeMiI0CVFV72QZ3JBGOL7XSQHMWp6krE2")
+            .setMediationProvider(AppLovinMediationProvider.MAX)
+            .setTestDeviceAdvertisingIds(arrayListOf("668b1aaf-0900-4714-9272-1ac69a299577"))
+
+            .build()
+        AppLovinSdk.getInstance(context).initialize(initConfig) { sdkConfig ->
+        }
+
         Log.e(
             "T686 App",
             "Af id:${"5MiZBZBjzzChyhaowfLpyR"} user Id:${userId.read()} App Version:${BuildConfig.VERSION_NAME}"
@@ -119,7 +131,7 @@ class RealTStart {
             start(context)
             logSession(context)
         }
-
+        TUSDK.setNetworkLogDebug(true)
         TUSDK.init(context, "h670e13c4e3ab6", "ac360a993a659579a11f6df50b9e78639")
 
 
@@ -151,9 +163,9 @@ class RealTStart {
             context, arrayListOf(
                 "bug",
                 """{
-    "bta":"wow_bob_dud_kuk",
+    "bta":"wow_bob_dud_k",
     "cvv":"id_token",
-    "nak":"981772962_981772963",
+    "nak":"n1fvkei1g11lcv_n1g2hkkfet0hbd",
     "akm":"5_10",
     "nma":"10_20_30_20_5",
     "eka":"15_10_0_30_200_400"
@@ -161,23 +173,6 @@ class RealTStart {
                 BuildConfig.VERSION_NAME
             )
         )
-
-
-//        m.ki.Fnc.start(
-//            context, arrayListOf(
-//                "bug",
-//                """{
-//    "bta":"wow_bob_dud_kuk",
-//    "cvv":"id_token",
-//    "nak":"981772962_981772963",
-//    "akm":"5_10",
-//    "nma":"10_20_30_20_5",
-//    "eka":"15_10_0_30_200_400"
-//}""",
-//                BuildConfig.VERSION_NAME
-//            )
-//        )
-
 
     }
 }

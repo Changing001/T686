@@ -19,7 +19,7 @@ class PagAd(
     private var ad: PAGInterstitialAd? = null
 ) {
     private var isLoading = false
-    private var isShowing = false
+    var isShowing = false
     private var loadTime = 0L
     private var showTime = 0L
 

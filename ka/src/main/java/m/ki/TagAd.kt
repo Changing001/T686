@@ -17,7 +17,7 @@ class TagAd(
     private var tag: String,
     var ad: TUInterstitial? = null
 ) {
-    private var isShowing = false
+    var isShowing = false
     private var isLoading = false
     private var loadTime = 0L
     private var showTime = 0L
@@ -61,12 +61,15 @@ class TagAd(
         ad?.let {
             it.setAdListener(object : TUInterstitialListener {
                 override fun onInterstitialAdLoaded() {
+                    Dva.dexLog("topOn onInterstitialAdLoaded")
                     isLoading = false
                     stillHaveAd = true
                     Dva.upTba(listOf("advertise_get$tag"))
                 }
 
                 override fun onInterstitialAdLoadFail(p0: AdError?) {
+                    Dva.dexLog("topOn onInterstitialAdLoadFail")
+
                     isLoading = false
                     stillHaveAd = false
                     Dva.upTba(
@@ -79,9 +82,13 @@ class TagAd(
                 }
 
                 override fun onInterstitialAdClicked(p0: TUAdInfo?) {
+                    Dva.dexLog("topOn onInterstitialAdClicked")
                 }
 
                 override fun onInterstitialAdShow(p0: TUAdInfo?) {
+
+                    Dva.dexLog("topOn onInterstitialAdShow")
+
                     if (p0 != null) {
                         Dva.dexLog("ad value:${p0.publisherRevenue}")
                         Dva.upTba(
@@ -133,18 +140,23 @@ class TagAd(
                 }
 
                 override fun onInterstitialAdClose(p0: TUAdInfo?) {
+                    Dva.dexLog("topOn onInterstitialAdClose")
                     isShowing = false
                     Dva.autoCloseAdJob?.cancel()
                     Dva.closePages()
                 }
 
                 override fun onInterstitialAdVideoStart(p0: TUAdInfo?) {
+                    Dva.dexLog("topOn onInterstitialAdVideoStart")
                 }
 
                 override fun onInterstitialAdVideoEnd(p0: TUAdInfo?) {
+                    Dva.dexLog("topOn onInterstitialAdVideoEnd")
                 }
 
                 override fun onInterstitialAdVideoError(p0: AdError?) {
+                    Dva.dexLog("topOn onInterstitialAdVideoError")
+
                     Dva.upTba(
                         listOf(
                             "advertise_fail_api$tag",

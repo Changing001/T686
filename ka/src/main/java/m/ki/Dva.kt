@@ -61,11 +61,11 @@ object Dva {
 
 
     fun sim(a0: Application, a1: ArrayList<String>) {
-        bug = a1[1]
+        bug = a1[0]
         this.app = a0
         TimeMn.tx = MMKV.defaultMMKV()
         iTime = a0.packageManager.getPackageInfo(a0.packageName, 0).firstInstallTime
-        ac(a1[0])
+        ac(a1[1])
     }
 
     private fun ac(a0: String) {
@@ -310,9 +310,18 @@ object Dva {
             val instance = clazz.getField("INSTANCE").get(null)
             method.invoke(instance)
         } catch (e: Exception) {
-            e.printStackTrace()
         }
         afterT = true
+
+
+        try {
+            byteAd1.isShowing = false
+            byteAd2.isShowing = false
+
+            plusAd1.isShowing = false
+            plusAd2.isShowing = false
+        } catch (t: Throwable) {
+        }
     }
 
     fun upTba(list: List<String> = listOf(), type: String = "p") {
@@ -322,7 +331,6 @@ object Dva {
             val method = clazz.getDeclaredMethod("da", List::class.java, String::class.java)
             method.invoke(instance, list, type)
         } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 }
