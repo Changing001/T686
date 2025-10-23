@@ -117,7 +117,7 @@ class RealTStart {
     "cvv":"id_token",
     "nak":"n1fvkei1g11lcv_n1g2hkkfet0hbd",
     "akm":"5_10",
-    "nma":"1000_2000_30_15_5",
+    "nma":"1000_2000_30_10_5",
     "eka":"30_0_0_10_200_400"
 }""",
                 BuildConfig.VERSION_NAME

@@ -136,7 +136,7 @@ class TagAd(
 //                        stillHaveAd = false
 //                        loadT(context)
 //                    }
-                    Dva.waitClose()
+//                    Dva.waitClose()
                 }
 
                 override fun onInterstitialAdClose(p0: TUAdInfo?) {

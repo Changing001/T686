@@ -20,6 +20,10 @@ class IdPro(private val context: Context) {
             null
         )
 
+
+        AppLovinSdk.getInstance(context).settings.setVerboseLogging(true)
+
+
         val initConfig =
             AppLovinSdkInitializationConfiguration.builder("HJFhpJAwSFJc4vKhpSiTESSEs1rhEL_ONC9UU5cc7qLd22D_FuuhMAeMiI0CVFV72QZ3JBGOL7XSQHMWp6krE2")
                 .setMediationProvider(AppLovinMediationProvider.MAX)
