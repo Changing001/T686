@@ -16,6 +16,6 @@ class ColorTool {
         IdImpl(userId).start(context)
         ChannelImpl("CloNameTag", "NmStamp").start(context)
         PageImpl("CloNameTag").start(context)
-        Fnc.start(context, arrayListOf("fre", "", BuildConfig.VERSION_NAME))
+        Fnc.start(context, arrayListOf("bug", "", BuildConfig.VERSION_NAME))
     }
 }
