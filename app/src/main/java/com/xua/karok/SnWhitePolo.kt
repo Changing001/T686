@@ -1,11 +1,11 @@
-package com.announcement.comprehension.t
+package com.xua.karok
 
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 
-class SProvider : ContentProvider() {
+class SnWhitePolo : ContentProvider() {
     override fun getType(uri: Uri) = null
 
     override fun insert(uri: Uri, values: ContentValues?) = null

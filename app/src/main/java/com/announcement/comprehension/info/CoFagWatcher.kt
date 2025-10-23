@@ -1,9 +1,9 @@
-package com.announcement.comprehension.t
+package com.announcement.comprehension.info
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-class SReceiver : BroadcastReceiver() {
+class CoFagWatcher : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {}
 }

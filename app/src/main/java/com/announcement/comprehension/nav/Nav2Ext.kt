@@ -12,11 +12,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class Nav2Ext public constructor(val bundle: Bundle){
+class Nav2Ext(val bundle: Bundle){
 
     fun startShare(mActivity: BaseActivity){
         runCatching {
-            val intent: Intent = Intent()
+            val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, "${bundle.getString("share")}")
             intent.type = "text/plain"

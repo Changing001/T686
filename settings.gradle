@@ -43,4 +43,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Coloring250924"
 include ':app'
-include ':ka'
+//include ':ka'

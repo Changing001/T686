@@ -1,34 +1,24 @@
-package com.announcement.comprehension.t
+package com.announcement.comprehension.utils.center.imp.pagesb
 
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.announcement.comprehension.utils.Ut2
 
-object ClosePages : Application.ActivityLifecycleCallbacks {
-
-    var list = arrayListOf<Activity>()
+object ActivityMaster : Application.ActivityLifecycleCallbacks {
 
     var action: ((Activity) -> Unit)? = null
-
-    fun c2() {
-        runCatching {
-            ArrayList(list).forEach {
-                it.finishAndRemoveTask()
-            }
-            list.clear()
-        }
-    }
 
     override fun onActivityCreated(
         activity: Activity,
         savedInstanceState: Bundle?
     ) {
         action?.invoke(activity)
-        list.add(activity)
+        Ut2.ps(activity)
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        list.remove(activity)
+        Ut2.ls(activity)
     }
 
 

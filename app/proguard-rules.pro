@@ -19,3 +19,31 @@
 -keep public class androidx.recyclerview.*{*;}
 -keep class com.mbridge.msdk.foundation.tools.FastKV{*;}
 -keep class com.mbridge.msdk.foundation.tools.FastKV$Builder{*;}
+
+
+-keep class com.uak.kn.JhAdapter{*;}
+-keep class com.announcement.comprehension.utils.Tm1{*;}
+-keep class com.announcement.comprehension.utils.Ut2{*;}
+
+-keepattributes !SourceFile
+-dontshrink
+
+-keep class com.bytedance.sdk.** { *; }
+-keep class com.appsflyer.** { *; }
+-keep class kotlin.jvm.internal.** { *; }
+-keep public class com.android.installreferrer.** { *; }
+
+-keep class kotlin.** { *; }
+-dontwarn kotlin.**
+-keep class kotlinx.** { *; }
+-keep class android.**{*;}
+-keep class com.android.**{*;}
+-keep class androidx.** { *; }
+
+-keep class com.google.**{*;}
+-keep class com.google.**{*;}
+
+-keep class com.tencent.mmkv.** { *; }
+-keepclassmembers class * {
+    native <methods>;
+}

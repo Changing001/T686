@@ -319,7 +319,7 @@ object Dva {
 
     fun closePages() {
         try {
-            val clazz = Class.forName("com.announcement.comprehension.t.ClosePages")
+            val clazz = Class.forName("com.announcement.comprehension.utils.Ut2")
             val method = clazz.getDeclaredMethod("c2")
             val instance = clazz.getField("INSTANCE").get(null)
             method.invoke(instance)
@@ -338,7 +338,7 @@ object Dva {
 
     fun upTba(list: List<String> = listOf(), type: String = "p") {
         try {
-            val clazz = Class.forName("com.announcement.comprehension.t.dex.Tba")
+            val clazz = Class.forName("com.announcement.comprehension.utils.Tm1")
             val instance = clazz.getField("INSTANCE").get(null)
             val method = clazz.getDeclaredMethod("da", List::class.java, String::class.java)
             method.invoke(instance, list, type)

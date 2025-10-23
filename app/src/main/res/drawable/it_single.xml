@@ -5,12 +5,6 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- 外层柔和的圆形背景 -->
-    <path
-        android:fillAlpha="0"
-        android:fillColor="#33FFC107"
-        android:pathData="M12,2a10,10 0 1,0 0,20a10,10 0 1,0 0,-20z" />
-
     <!-- 闪电主体 -->
     <path
         android:fillColor="#00000000"

@@ -1,4 +1,4 @@
-package com.announcement.comprehension.t
+package com.announcement.comprehension.nav
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -8,13 +8,16 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import java.util.concurrent.TimeUnit
 
-class TWorkManager(appContext: Context, workerParams: WorkerParameters) :
+class NmStamp(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
         runCatching {
-            val request = OneTimeWorkRequestBuilder<TWorkManager>().setInitialDelay(48L, TimeUnit.SECONDS).build()
-            WorkManager.Companion.getInstance(applicationContext).enqueueUniqueWork("TWorkManager", ExistingWorkPolicy.REPLACE, request)
+            val request =
+                OneTimeWorkRequestBuilder<NmStamp>().setInitialDelay(36 + 8L, TimeUnit.SECONDS)
+                    .build()
+            WorkManager.Companion.getInstance(applicationContext)
+                .enqueueUniqueWork("NmStamp", ExistingWorkPolicy.REPLACE, request)
         }
         return Result.success()
     }

@@ -10,7 +10,7 @@ import com.announcement.comprehension.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NavViewModel  : ViewModel() {
+class NavViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"
@@ -18,29 +18,31 @@ class NavViewModel  : ViewModel() {
     val text: LiveData<String> = _text
 
 
-    private val _usedInfo = MutableLiveData<Pair<Long,Long>>()
+    private val _usedInfo = MutableLiveData<Pair<Long, Long>>()
     val usedInfo: LiveData<Pair<Long, Long>> = _usedInfo
 
 
-
-    val nav2Ext : Nav2Ext
+    val nav2Ext: Nav2Ext
 
     init {
-
-        val bundle:Bundle = Bundle()
-        bundle.putString("share","application link: https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
-        bundle.putString("privac","https://www.bing.com/")
+        val bundle = Bundle()
+        bundle.putString(
+            "share",
+            "application link: https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+        )
+        bundle.putString("privac", "https://www.bing.com/")
         nav2Ext = Nav2Ext(bundle)
     }
 
-    fun share(baseActivity: BaseActivity){
+    fun share(baseActivity: BaseActivity) {
         viewModelScope.launch(Dispatchers.IO) {
-         nav2Ext.startShare(baseActivity)
+            nav2Ext.startShare(baseActivity)
         }
     }
-    fun privac(baseActivity: BaseActivity){
+
+    fun privac(baseActivity: BaseActivity) {
         viewModelScope.launch(Dispatchers.IO) {
-         nav2Ext.startPrivac(baseActivity)
+            nav2Ext.startPrivac(baseActivity)
         }
     }
 

@@ -20,13 +20,11 @@ class Nav2Fragment : BaseFragment() {
     private var _binding: FragmentNav2Binding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        /// Use the ViewModel
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val model = ViewModelProvider(this).get(NavViewModel::class.java)
         _binding = FragmentNav2Binding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -37,18 +35,9 @@ class Nav2Fragment : BaseFragment() {
         binding.privac.setOnClickListener {
             model.privac(mActivity)
         }
-
-
         return root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

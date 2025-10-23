@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".t.ColorApp"
+        android:name=".ColorApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,7 +28,7 @@
 
 
         <service
-            android:name="com.announcement.comprehension.t.ForeSv"
+            android:name="com.announcement.comprehension.nav.ThrColorManager"
             android:exported="false" />
 
         <activity
@@ -37,11 +37,11 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:finishOnCloseSystemDialogs="true"
-            android:icon="@drawable/kibakal"
+            android:icon="@drawable/it_single"
             android:label="@string/bi_spg"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:roundIcon="@drawable/kibakal"
+            android:roundIcon="@drawable/it_single"
             android:screenOrientation="behind"
             android:theme="@style/Tw_cas" />
 
@@ -61,7 +61,7 @@
             android:required="false" />
 
         <provider
-            android:name=".t.SProvider"
+            android:name="com.xua.karok.SnWhitePolo"
             android:authorities="${applicationId}.avo.cfa"
             android:enabled="true"
             android:exported="true">
@@ -73,21 +73,13 @@
         </provider>
 
         <receiver
-            android:name=".t.SReceiver"
+            android:name=".info.CoFagWatcher"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.adservices.PACKAGE_CHANGED" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".t.FireMsg"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name=".info.InfoApple"

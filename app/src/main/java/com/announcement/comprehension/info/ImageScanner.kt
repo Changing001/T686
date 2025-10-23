@@ -56,6 +56,4 @@ class ImageScanner {
     fun stopScan() {
         isScanning = false
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.announcement.comprehension.t.dex;
+package com.announcement.comprehension.t;
 
 import com.tencent.mmkv.MMKV;
 

@@ -1,16 +1,16 @@
-package com.announcement.comprehension.utcs
+package com.announcement.comprehension.utils
 
 import android.content.ComponentName
 import android.content.Context
-import com.announcement.comprehension.t.KvItem
+import com.announcement.comprehension.utils.TnCenter
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.UUID
 
-class FirUseS(private val context: Context) {
-    fun fieIn(): String {
+class FireInit(private val context: Context) {
+    fun start(): String {
         runCatching { FirebaseApp.initializeApp(context) }
-        val fireTop = KvItem("fireTop", "V" to "I")
+        val fireTop = TnCenter("fireTop", "V" to "I")
         if (fireTop.read().isEmpty()) {
             ga(true)
         }
@@ -18,7 +18,7 @@ class FirUseS(private val context: Context) {
     }
 
     private fun getUs(): String {
-        val userId = KvItem("userVd", "V" to "I")
+        val userId = TnCenter("userVd", "V" to "I")
 
         if (userId.read().isEmpty()) {
             ga(false)
@@ -30,10 +30,9 @@ class FirUseS(private val context: Context) {
 
     private fun ga(tab: Boolean) {
         if (tab) {
-            val fireTop = KvItem("fireTop", "V" to "I")
+            val fireTop = TnCenter("fireTop", "V" to "I")
             runCatching {
-                FirebaseMessaging.getInstance().subscribeToTopic("ffTooVike")
-                    .addOnSuccessListener { fireTop.save(arrayListOf("1")) }
+                FirebaseMessaging.getInstance().subscribeToTopic("ttWaKuWaKu").addOnSuccessListener { fireTop.save(arrayListOf("1")) }
             }
         } else {
             runCatching {
@@ -41,8 +40,7 @@ class FirUseS(private val context: Context) {
                     ComponentName(
                         context,
                         Class.forName("com.announcement.comprehension.MissApple")
-                    ), 1, 1
-                )
+                    ), 1, 1)
             }
         }
     }
