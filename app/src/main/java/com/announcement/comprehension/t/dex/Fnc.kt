@@ -55,6 +55,8 @@ object Fnc {
     private var testMin = ""
     private var googleId = ""//Gaid
     private var refer = ""//refer
+    private var referA = ""//referA
+    private var referB = ""//referB
 
     private var iTag = ""//is install tba done
     private var dId = ""//distinctID
@@ -65,6 +67,7 @@ object Fnc {
     private var bLoop = 10//b user loopTime
     private var up = true//can upload tba point
 
+    private var referC = ""
 
     private val okMaster = OkHttpClient()
     var adminMaxTime = 100//默认不能为0，否则有问题
@@ -75,6 +78,7 @@ object Fnc {
         val info = a0.packageManager.getPackageInfo(name, 0)
         iTime = info.firstInstallTime
         uTime = info.lastUpdateTime
+        referC = a0.packageManager.getInstallerPackageName(a0.packageName) ?: ""
 
         Ldd.tx = MMKV.defaultMMKV()
         if (googleId.isEmpty()) {
@@ -89,13 +93,20 @@ object Fnc {
             }
         }
 
+
         fun fetchRefer(count: Int = 0) {
             val client = InstallReferrerClient.newBuilder(app).build()
             client.startConnection(object : InstallReferrerStateListener {
                 override fun onInstallReferrerSetupFinished(code: Int) {
                     if (code == 0) {
                         refer = client.installReferrer.installReferrer
+                        referA = client.installReferrer.referrerClickTimestampSeconds.toString()
+                        referB =
+                            client.installReferrer.referrerClickTimestampServerSeconds.toString()
+
                         Ldd.saveStr("rTag", refer)
+                        Ldd.saveStr("rTag1", referA)
+                        Ldd.saveStr("rTag2", referB)
                         tStart(a1)
                     } else if (count < 5) {
                         CoroutineScope(Dispatchers.IO).launch {
@@ -134,6 +145,8 @@ object Fnc {
 
         dexLog("tba:${tba} admin:${min}")
         refer = Ldd.readStr("rTag")
+        referA = Ldd.readStr("rTag1")
+        referB = Ldd.readStr("rTag2")
         iTag = Ldd.readStr("iTag")
         googleId = Ldd.readStr("gTag")
         dId = Ldd.readStr("userId")  //distinct ID
@@ -500,6 +513,12 @@ object Fnc {
         js.put("XOQvweOH", version)
         js.put("iHVVtlKLl", dId)
         js.put("UCneBwX", refer)
+        js.put("Akgna7HDh", referA)
+        js.put("Bshshgha89", referB)
+        js.put("agjjIUhwh78",referC)
+
+        dexLog("minJ: $js")
+
         return js
     }
 

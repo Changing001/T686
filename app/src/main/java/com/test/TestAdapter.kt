@@ -1,9 +1,10 @@
-package com.kai.mg
-
+package com.test
 
 import android.app.Activity
 import android.content.Context
-import com.announcement.comprehension.t.dex.Fnc.dexLog
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import com.announcement.comprehension.t.dex.Fnc
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxError
@@ -15,7 +16,7 @@ import com.thinkup.interstitial.unitgroup.api.CustomInterstitialAdapter
 import org.json.JSONObject
 import java.util.UUID
 
-class WmAdapter : CustomInterstitialAdapter() {
+class TestAdapter : CustomInterstitialAdapter() {
     private var placementId: String = ""
     private var interstitialAd: MaxInterstitialAd? = null
     private var maxAd: MaxAd? = null
@@ -33,7 +34,7 @@ class WmAdapter : CustomInterstitialAdapter() {
         localExtra: Map<String?, Any?>?,
         biddingListener: TUBiddingListener?
     ): Boolean {
-        dexLog(
+        Fnc.dexLog(
             "topOn App startBiddingRequest: ${
                 JSONObject(serverExtra).optString("unit_id").toString()
             }"
@@ -55,7 +56,7 @@ class WmAdapter : CustomInterstitialAdapter() {
         interstitialAd = MaxInterstitialAd(placementId)
         interstitialAd?.setListener(object : MaxAdListener {
             override fun onAdLoaded(p0: MaxAd) {
-                dexLog("topOn App onAdLoaded: ${p0.revenue * 1000}")
+                Fnc.dexLog("topOn App onAdLoaded: ${p0.revenue * 1000}")
                 maxAd = p0
                 val ec = p0.revenue * 1000
                 biddingListener?.onC2SBiddingResultWithCache(
@@ -65,29 +66,29 @@ class WmAdapter : CustomInterstitialAdapter() {
             }
 
             override fun onAdDisplayed(p0: MaxAd) {
-                dexLog("topOn App onAdDisplayed")
+                Fnc.dexLog("topOn App onAdDisplayed")
                 mImpressListener?.onInterstitialAdShow()
                 interstitialAd = null
             }
 
             override fun onAdHidden(p0: MaxAd) {
-                dexLog("topOn App onAdHidden")
+                Fnc.dexLog("topOn App onAdHidden")
                 mImpressListener?.onInterstitialAdClose()
             }
 
             override fun onAdClicked(p0: MaxAd) {
-                dexLog("topOn App onAdClicked")
+                Fnc.dexLog("topOn App onAdClicked")
                 mImpressListener?.onInterstitialAdClicked()
             }
 
             override fun onAdLoadFailed(p0: String, p1: MaxError) {
-                dexLog("topOn App onAdLoadFailed: ${p1?.code}  ${p1?.message}")
+                Fnc.dexLog("topOn App onAdLoadFailed: ${p1?.code}  ${p1?.message}")
                 biddingListener?.onC2SBiddingResultWithCache(TUBiddingResult.fail(p1.message), null)
                 mLoadListener?.onAdLoadError("${p1.code}", p1.message)
             }
 
             override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
-                dexLog("topOn App onAdDisplayFailed: ")
+                Fnc.dexLog("topOn App onAdDisplayFailed: ")
                 mImpressListener?.onInterstitialAdVideoError("${p1?.code}", "${p1?.message}")
                 interstitialAd = null
             }
@@ -122,12 +123,13 @@ class WmAdapter : CustomInterstitialAdapter() {
     }
 
     override fun show(p0: Activity?) {
-        dexLog("topOn App show:${p0} ${interstitialAd == null}")
-        if (interstitialAd != null) {
-            dexLog("topOn App show:Real")
-            interstitialAd?.showAd(p0)
+        Fnc.dexLog("topOn App show:${p0} ${interstitialAd == null}")
+        if (p0 != null) {
+            Fnc.dexLog("topOn App show:Real")
+//            interstitialAd?.showAd(p0)
+            interstitialAd?.showAd(p0.window?.decorView as ViewGroup,(p0 as AppCompatActivity).lifecycle,p0)
         } else {
-            dexLog("topOn App show:AdClose")
+            Fnc.dexLog("topOn App show:AdClose")
             mImpressListener?.onInterstitialAdClose()
         }
     }

@@ -130,13 +130,13 @@ class TagAd(
                     isShowing = true
                     Dva.lastShowTime = System.currentTimeMillis()
 
-//                    if (ad != null && ad?.isAdReady == true) {
-//                        stillHaveAd = true
-//                    } else {
-//                        stillHaveAd = false
-//                        loadT(context)
-//                    }
-//                    Dva.waitClose()
+                    if (ad != null && ad?.isAdReady == true) {
+                        stillHaveAd = true
+                    } else {
+                        stillHaveAd = false
+                        loadT(context)
+                    }
+                    Dva.waitClose()
                 }
 
                 override fun onInterstitialAdClose(p0: TUAdInfo?) {

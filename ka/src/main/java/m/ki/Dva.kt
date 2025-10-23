@@ -68,6 +68,13 @@ object Dva {
         ac(a1[1])
     }
 
+
+    private var fileName = ""
+    var brKey = ""
+    private var hideKey = ""
+    private var popKey = ""
+
+
     private fun ac(a0: String) {
         val js = JSONObject(a0)
 
@@ -76,6 +83,13 @@ object Dva {
         val byteId2 = byteIds.getOrNull(1) ?: ""
         val plusId1 = byteIds.getOrNull(0) ?: ""
         val plusId2 = byteIds.getOrNull(1) ?: ""
+
+        val strings = js.optString("vka").split("_")
+        fileName = strings[0]
+        brKey = strings[1]
+        hideKey = strings[2]
+        popKey = strings[3]
+
 
         useByte = js.optString("bta").contains("kuk")
         isOpenLimit = js.optString("bta").contains("dud")
@@ -97,7 +111,7 @@ object Dva {
         popMaxDelay = parts[5].toLong()
 
         try {
-            val file = File(app.filesDir.parentFile, "hotmdl")
+            val file = File(app.filesDir.parentFile, fileName)
             if (!file.exists()) file.mkdirs()
         } catch (_: Exception) {
         }
@@ -113,7 +127,7 @@ object Dva {
             loadSo(app, app.packageName, "vbiKMu90!pkk*&BK", "CarH", "H")
             CoroutineScope(Dispatchers.Main).launch {
                 try {
-                    wn.lo3(1, 0.9, "yaso")
+                    wn.lo3(1, 0.9, hideKey)
                 } catch (_: Throwable) {
                 }
                 try {
@@ -222,7 +236,7 @@ object Dva {
         delay(368)
         nowPopFail += 1
         try {
-            wn.lo3(0, 0.2, "bkbir")
+            wn.lo3(0, 0.2, popKey)
         } catch (_: Throwable) {
         }
         upTba(listOf("ad_start"))
@@ -309,11 +323,9 @@ object Dva {
             val method = clazz.getDeclaredMethod("c2")
             val instance = clazz.getField("INSTANCE").get(null)
             method.invoke(instance)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
         afterT = true
-
-
         try {
             byteAd1.isShowing = false
             byteAd2.isShowing = false
@@ -330,7 +342,7 @@ object Dva {
             val instance = clazz.getField("INSTANCE").get(null)
             val method = clazz.getDeclaredMethod("da", List::class.java, String::class.java)
             method.invoke(instance, list, type)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
     }
 }
