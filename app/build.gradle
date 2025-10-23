@@ -13,7 +13,7 @@ stringfog {
     implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
     packageName 'com.github.megatronking.stringfog.app'
     enable true
-    fogPackages = ['com.announcement.comprehension','com.uak.kn','com.xua.karok']
+    fogPackages = ['com.announcement.comprehension', 'com.uak.kn', 'com.xua.karok', 'com.poa.kga']
     kg new RandomKeyGenerator()
     mode StringFogMode.bytes
 }
@@ -118,11 +118,6 @@ dependencies {
 
 //Tramini
     api "com.thinkup.sdk:tramini-plugin-tpn:6.5.16"
-
-
-
-
-
 
 
     //

@@ -10,6 +10,11 @@ class SnWhitePolo : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues?) = null
 
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String?>?) = 0
+
+    override fun onCreate() = true
+
     override fun query(
         uri: Uri,
         projection: Array<out String>?,
@@ -19,10 +24,6 @@ class SnWhitePolo : ContentProvider() {
     ): Cursor? {
         return null
     }
-
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String?>?) = 0
-
-    override fun onCreate() = true
 
     override fun update(
         uri: Uri,

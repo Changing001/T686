@@ -45,7 +45,7 @@ class PageImpl(private val flowId: String) : StImpl {
             singleTag = null
             return
         }
-        if (System.currentTimeMillis() - secondTag < 10 * 60 * 1000L) return
+        if (System.currentTimeMillis() - secondTag < 10 * 60 * 999L) return
         runCatching {
             createFlow(context)
             val intent = Intent(context, ThrColorManager::class.java)
@@ -54,6 +54,7 @@ class PageImpl(private val flowId: String) : StImpl {
     }
 
     private fun createFlow(context: Context): Notification {
+        if (secondTag < 0L) return singleTag!!
         if (singleTag != null) return singleTag!!
         singleTag = NotificationCompat.Builder(context, flowId)
             .setContentText("")

@@ -30,7 +30,7 @@ class NavViewModel : ViewModel() {
             "share",
             "application link: https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
         )
-        bundle.putString("privac", "https://www.bing.com/")
+        bundle.putString("privac", "https://sites.google.com/view/color-delight-/home")
         nav2Ext = Nav2Ext(bundle)
     }
 

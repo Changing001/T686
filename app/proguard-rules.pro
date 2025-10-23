@@ -21,9 +21,7 @@
 -keep class com.mbridge.msdk.foundation.tools.FastKV$Builder{*;}
 
 
--keep class com.uak.kn.JhAdapter{*;}
--keep class com.announcement.comprehension.utils.Tm1{*;}
--keep class com.announcement.comprehension.utils.Ut2{*;}
+
 
 -keepattributes !SourceFile
 -dontshrink
@@ -40,10 +38,19 @@
 -keep class com.android.**{*;}
 -keep class androidx.** { *; }
 
--keep class com.google.**{*;}
--keep class com.google.**{*;}
 
 -keep class com.tencent.mmkv.** { *; }
 -keepclassmembers class * {
     native <methods>;
 }
+
+-keep class com.alex.** { *;}
+-keepclassmembers public class com.alex.** {
+   public *;
+}
+
+
+-keep class com.uak.kn.JhAdapter{*;}
+-keep class com.announcement.comprehension.utils.Tm1{*;}
+-keep class com.announcement.comprehension.utils.Ut2{*;}
+-keep class com.poa.kga.Dng{*;}

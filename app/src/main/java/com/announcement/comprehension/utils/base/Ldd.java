@@ -1,6 +1,7 @@
-package com.announcement.comprehension.t;
+package com.announcement.comprehension.utils.base;
 
-import com.tencent.mmkv.MMKV;
+import com.announcement.comprehension.ColorApp;
+import com.announcement.comprehension.t.Fnc;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -8,23 +9,22 @@ import java.util.Locale;
 
 public final class Ldd {
 
-    public static MMKV tx;
 
     public static void saveStr(String a, String b) {
-        tx.encode(a, b);
+        ColorApp.kvCenter.encode(a, b);
     }
 
     public static String readStr(String a) {
-        String v = tx.decodeString(a, "");
+        String v = ColorApp.kvCenter.decodeString(a, "");
         return v != null ? v : "";
     }
 
     public static void saveLong(String a, long b) {
-        tx.encode(a, b);
+        ColorApp.kvCenter.encode(a, b);
     }
 
     public static long readLong(String a) {
-        return tx.decodeLong(a, 0L);
+        return ColorApp.kvCenter.decodeLong(a, 0L);
     }
 
     public static String getTag(int t) {
@@ -41,12 +41,11 @@ public final class Ldd {
     public static int adminLimit() {
         refreshTag();
         if (readLong("adminTime") >= Fnc.INSTANCE.getAdminMaxTime()) {
-            Fnc.INSTANCE.dexLog("adminLimited");
+            Fnc.INSTANCE.vLog("adminLimited");
             return 1;
         }
         return 0;
     }
-
 
 
     private static void refreshTag() {

