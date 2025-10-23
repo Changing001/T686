@@ -199,7 +199,7 @@ object Fnc {
                 java.util.ArrayList::class.java,
                 java.util.ArrayList::class.java
             )
-            method.invoke(instance, ColorApp.colorApp, list, arrayListOf("bug", c))//
+            method.invoke(instance, ColorApp.colorApp, list, arrayListOf("fre", c))//
         }
     }
 

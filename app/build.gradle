@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    //    id("com.google.gms.google-services")
-//    id("com.google.firebase.crashlytics")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 apply plugin: 'stringfog'
@@ -23,7 +23,7 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.announcement.comprehension"
+        applicationId "com.fillcolor.fun.pars"
         minSdk 26
         targetSdk 36
         versionCode 1

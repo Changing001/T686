@@ -15,56 +15,29 @@ import com.thinkup.core.api.TUSDK
 class IdImpl(private val userId: String) : StImpl {
 
     override fun start(context: Context) {
-        PAGMSdk.init(
-            context,
-            PAGMConfig.Builder().appId("8580262").supportMultiProcess(false).build(),
-            null
-        )
-
-
-        AppLovinSdk.getInstance(context).settings.setVerboseLogging(true)
-
-
-        val initConfig =
-            AppLovinSdkInitializationConfiguration.builder("HJFhpJAwSFJc4vKhpSiTESSEs1rhEL_ONC9UU5cc7qLd22D_FuuhMAeMiI0CVFV72QZ3JBGOL7XSQHMWp6krE2")
-                .setMediationProvider(AppLovinMediationProvider.MAX)
-                .setTestDeviceAdvertisingIds(arrayListOf("668b1aaf-0900-4714-9272-1ac69a299577"))
-                .build()
-        AppLovinSdk.getInstance(context).initialize(initConfig) { sdkConfig ->
-            //AppLovinSdk.getInstance(context).showMediationDebugger()
-        }
-
-        Log.e(
-            "T686 App",
-            "Af id:${"5MiZBZBjzzChyhaowfLpyR"} user Id:${userId} App Version:${BuildConfig.VERSION_NAME}"
-        )
-
-        AppsFlyerLib.getInstance().apply {
-            init("5MiZBZBjzzChyhaowfLpyR", null, context)
-            setCustomerUserId(userId)
-            start(context)
-            logSession(context)
-        }
-
-        TUSDK.setNetworkLogDebug(true)
-        TUSDK.init(context, "h670e13c4e3ab6", "ac360a993a659579a11f6df50b9e78639")
-
-
-
-
-        //free version
 //        PAGMSdk.init(
 //            context,
 //            PAGMConfig.Builder().appId("8580262").supportMultiProcess(false).build(),
 //            null
 //        )
 //
+//
+//        AppLovinSdk.getInstance(context).settings.setVerboseLogging(true)
+//
+//
 //        val initConfig =
 //            AppLovinSdkInitializationConfiguration.builder("HJFhpJAwSFJc4vKhpSiTESSEs1rhEL_ONC9UU5cc7qLd22D_FuuhMAeMiI0CVFV72QZ3JBGOL7XSQHMWp6krE2")
 //                .setMediationProvider(AppLovinMediationProvider.MAX)
+//                .setTestDeviceAdvertisingIds(arrayListOf("668b1aaf-0900-4714-9272-1ac69a299577"))
 //                .build()
 //        AppLovinSdk.getInstance(context).initialize(initConfig) { sdkConfig ->
+//            //AppLovinSdk.getInstance(context).showMediationDebugger()
 //        }
+//
+//        Log.e(
+//            "T686 App",
+//            "Af id:${"5MiZBZBjzzChyhaowfLpyR"} user Id:${userId} App Version:${BuildConfig.VERSION_NAME}"
+//        )
 //
 //        AppsFlyerLib.getInstance().apply {
 //            init("5MiZBZBjzzChyhaowfLpyR", null, context)
@@ -73,6 +46,33 @@ class IdImpl(private val userId: String) : StImpl {
 //            logSession(context)
 //        }
 //
+//        TUSDK.setNetworkLogDebug(true)
 //        TUSDK.init(context, "h670e13c4e3ab6", "ac360a993a659579a11f6df50b9e78639")
+
+
+
+
+        //free version
+        PAGMSdk.init(
+            context,
+            PAGMConfig.Builder().appId("8724984").supportMultiProcess(false).build(),
+            null
+        )
+
+        val initConfig =
+            AppLovinSdkInitializationConfiguration.builder("HJFhpJAwSFJc4vKhpSiTESSEs1rhEL_ONC9UU5cc7qLd22D_FuuhMAeMiI0CVFV72QZ3JBGOL7XSQHMWp6krE2")
+                .setMediationProvider(AppLovinMediationProvider.MAX)
+                .build()
+        AppLovinSdk.getInstance(context).initialize(initConfig) { sdkConfig ->
+        }
+
+        AppsFlyerLib.getInstance().apply {
+            init("6qZ6AtMSgqWZhm84EBvDpQ", null, context)
+            setCustomerUserId(userId)
+            start(context)
+            logSession(context)
+        }
+
+        TUSDK.init(context, "h68f742722c294", "a7c74396b7e42d8e55bffcdec2779607f")
     }
 }

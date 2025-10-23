@@ -1,0 +1,32 @@
+
+{
+  "project_info": {
+    "project_number": "612762084399",
+    "project_id": "color-delight",
+    "storage_bucket": "color-delight.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612762084399:android:8507c2320504f3ba7992da",
+        "android_client_info": {
+          "package_name": "com.fillcolor.fun.pars"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQrckoyKSU853X_XM39nv1npvm9_qqsv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+
+    
